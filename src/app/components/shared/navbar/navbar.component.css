@@ -1,0 +1,42 @@
+.navbar-dark {
+  background-color: transparent !important;
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+.navbar-dark .navbar-brand {
+  color: #ffffff !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navbar-dark .navbar-brand img {
+  width: auto;
+  height: 50px;
+  padding-right: 15px;
+}
+
+.navbar-dark .navbar-toggler {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #ffffff !important;
+}
+
+.navbar-dark .content-right .fa-shopping-cart {
+  color: #ffffff;
+}
+/*# sourceMappingURL=navbar.component.css.map */

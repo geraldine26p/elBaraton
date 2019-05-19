@@ -1,0 +1,64 @@
+<div class="b1">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>
+                    Tu Pedido
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5 mb-5">
+    <div class="row" *ngIf="products && objectKeys(products).length > 0">
+        <div class="col-12 col-sm-8">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr *ngFor="let key of objectKeys(products)">
+                            <td class="centerCont">
+                                <a class="closebtn" (click)="deleteProduct(products[key].id)">&times;</a>
+                            </td>
+                            <td>
+                                <img src="https://via.placeholder.com/140" alt="">
+                            </td>
+                            <td class="centerCont">
+                                {{ products[key].name }}
+                            </td>
+                            <td class="centerCont">
+                                {{ products[key].price }}
+                            </td>
+                            <td class="centerCont">
+                                <input min="1" style="margin-top: -5px;" type="number" class="form-control col-sm-3" [value]="products[key].quantity" (change)="changeQty($event, products[key].id)">
+                            </td>
+                            <td class="centerCont">
+                                ${{ products[key].totalPrice.toLocaleString('en-IN') }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12 col-sm-4">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <div class="cart_totals">
+                        <h5 class="card-title">totales del carro</h5>
+                    </div>
+                    <div class="total">
+                        <h5>Total</h5>
+                        <span>${{ totalPrice.toLocaleString('en-IN') }}</span>
+                    </div>
+                    <a (click)="processPurchase()" class="btn btn-danger btn-block">Procesar compra</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-12" *ngIf="!products || objectKeys(products).length == 0">
+            <div class="alert alert-info">
+                No tiene productos en el carrito
+            </div>
+        </div>
+    </div>
+</div>

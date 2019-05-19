@@ -1,0 +1,147 @@
+<app-home></app-home>
+
+<div class="mt-5 mb-5">
+    <div class="b1">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-sm-6">
+                    <div class="filter">
+                        <div id="mySidenav" class="sidenav">
+                            <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+                            <div class="section_block mt-2">
+                                <h3>Categorías de Producto</h3>
+                                <ul class="nav flex-column" *ngIf="categories.length != 0">
+                                    <li *ngFor="let category of categories">
+                                        <a (click)="categoryFilter(category.id, category.sublevels)">
+                                            {{ category.name }}
+                                        </a>
+                                        <ul *ngIf="category.sublevels && category.sublevels.length > 0">
+                                            <li *ngFor="let child of category.sublevels">
+                                                <a (click)="categoryFilter(child.id, child.sublevels)">
+                                                    {{ child.name }}
+                                                </a>
+                                                <ul *ngIf="child.sublevels && child.sublevels.length > 0">
+                                                    <li *ngFor="let grandchild of child.sublevels">
+                                                        <a (click)="categoryFilter(grandchild.id, grandchild.sublevels)">
+                                                            {{ grandchild.name }}
+                                                        </a>
+                                                        <ul *ngIf="grandchild.sublevels && grandchild.sublevels.length > 0">
+                                                            <li *ngFor="let greatGrandson of grandchild.sublevels">
+                                                                <a (click)="categoryFilter(greatGrandson.id, greatGrandson.sublevels)">
+                                                                    {{ greatGrandson.name }}
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="section_block">
+                                <h3>Disponibilidad</h3>
+                                <select class="form-control" (change)="filterByDisponibility($event)">
+                                    <option>Seleccione una opcion..</option>
+                                    <option value="1" [selected]="(filters.available === 1) ? true : false">Disponible</option>
+                                    <option value="0" [selected]="(filters.available === 0) ? true : false">No disponible</option>
+                                </select>
+                            </div>
+                            <div class="section_block">
+                                <h3>Cantidad</h3>
+                                <select class="form-control" (change)="filterByQuantity($event)">
+                                    <option>Seleccione la cantidad...</option>
+                                    <option value="1" [selected]="(filters.quantity === 1) ? true : false">Cantidad mayor a 1</option>
+                                    <option value="100" [selected]="(filters.quantity === 100) ? true : false">Cantidad mayor a 100</option>
+                                    <option value="1000" [selected]="(filters.quantity === 1000) ? true : false">Cantidad mayor a 1000</option>
+                                </select>
+                            </div>
+                            <div class="section_block">
+                                <h3>Rango de precio</h3>
+                                Seleccion actual: {{filters.price_range[0]}} - {{filters.price_range[1]}}
+                                <input (change)="filterByRange($event)" type="range" [min]="minPriceProduct" [max]="maxPriceProduct" [value]="filters.price_range[1]" class="form-control-range">
+                                <button class="btn btn-outline-danger btn-block mt-2" (click)="resetFilter()">
+                                    Reset filter
+                                </button>
+                            </div>
+                        </div>
+                        <button class="btn btn-default" (click)="openNav()">
+                            <img src="../../../../assets/images/icons/baseline-list-24px.svg" alt="">
+                            Filtros
+                        </button>
+
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6">
+                    <div class="order_products">
+                        <div class="dropdown">
+                            <button class="btn btn-defaul dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   Ordenar por 
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <button (click)="orderByPriceLowToHigt()" class="dropdown-item" type="button">Menor precio</button>
+                                <button (click)="orderByPriceHigtToLow()" class="dropdown-item" type="button">Mayor precio</button>
+                                <button (click)="orderByAvailability()" class="dropdown-item" type="button">Disponibilidad</button>
+                                <button (click)="orderByQuantityLowToHigt()" class="dropdown-item" type="button">Menor cantidad</button>
+                                <button (click)="orderByQuantityHigtToLow()" class="dropdown-item" type="button">Mayor cantidad</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div style="margin-bottom: 20px;" class="text-muted">
+                        <b>{{filterProducts.length}}</b> Productos encontrados
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shop_list">
+        <div class="container">
+            <div class="row mb-2" *ngIf="showForm == true">
+                <div class="col-md-12">
+                    <div>
+                        <input type="text" class="form-control" placeholder="Ingrese el nombre del producto que desea buscar..." (keyup)="searchByName($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="filterProducts.length === 0">
+                <div class="col-md-12">
+                    <div class="alert alert-danger">
+                        No hay productos para la categoria seleccionada.
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-3" *ngFor="let product of filterProducts">
+                    <div class="card_shop">
+                        <div class="card">
+                            <img src="https://via.placeholder.com/140x140" class="card-img-top img-fluid" alt="...">
+                            <div class="card-body">
+                                <div class="characteristics">
+                                    <div class="price">
+                                        <span class="name">{{ product.name }}</span>
+                                        <span class="price_s">{{ product.price }}</span>
+                                    </div>
+                                    <div class="availability_shop">
+                                        <span *ngIf="product.available === true" class="text-success">
+                                            Cantidad disponible: <span>{{ product.quantity }}</span>
+                                        </span>
+                                        <span *ngIf="product.available === false" class="text-danger">
+                                            Agotado
+                                        </span>
+                                    </div>
+                                    <div class="add_cart" *ngIf="product.available === true">
+                                        <button (click)="addToCart(product.id, product.quantity, product)" class="btn btn-default btn-block">Agregar al carrito</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

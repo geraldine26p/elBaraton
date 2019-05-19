@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" (scroll)="scrollHandler($event)">
+    <a class="navbar-brand" routerLink="shop">
+        <img src="../../../../assets/images/logo.png" class="d-inline-block align-top" alt=""> El Baratón
+    </a>
+    <a routerLink="cart" class="cart-mobile d-sm-none d-md-block d-lg-none">
+        <i class="mr-sm-2 fas fa-shopping-cart"></i>
+    </a>
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+
+        </ul>
+        <div class="my-2 my-lg-0 content-right">
+            <a routerLink="cart">
+                <i class="mr-sm-2 fas fa-shopping-cart"></i>
+            </a>
+        </div>
+    </div>
+</nav>

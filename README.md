@@ -33,5 +33,7 @@
 2) **Luego en la consola debe posicionarse en la carpeta del proyecto y ejecutar `npm install` para instalar todos los paquetes.**
 3) **Por ultimo debe ejecutar en la consola el comando `ng serve -o` para abrir el proyecto en su navegador**
 
-##### Nota: El formato del precio de los productos se visualizan (http://prntscr.com/nqe7f1) de esa manera ya que en el json aparecian con ese formato y decidi no cambiar el formato. 
+##### Nota: 
+**Desarrolle el proyecto en angular V7.2.15**
+**El formato del precio de los productos se visualizan (http://prntscr.com/nqe7f1) de esa manera ya que en el json aparecian con ese formato y decidi no cambiar el formato.**
 
